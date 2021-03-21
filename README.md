@@ -1,2 +1,9 @@
 # vigilant-eureka
-computer architecture uc stuff
+
+# what you can find here
+
+computer architecture uc solved problems
+
+# careful
+
+assembly here
