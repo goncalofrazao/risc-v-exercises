@@ -17,6 +17,8 @@ for:
 slli x10, x10, 1
 blt x10, x12, for
 
+srli x10, x10, 1
+
 addi x15, x15, 4
 sw x10, 0(x15) 
 
