@@ -5,7 +5,7 @@
 # da sequencia de fibonacci
 
 .data
-x: .word 2
+x: .word 1
 
 
 .text
@@ -14,18 +14,9 @@ lw x10, x
 li x12, 55
 
 for:
-blt x10, x12, this
-bgt x10,x12, otherwise
-
-otherwise:
-srli x10,x10,1
-j end
-
-this:
 slli x10, x10, 1
-j for
+blt x10, x12, for
 
-end:
 addi x15, x15, 4
 sw x10, 0(x15) 
 
