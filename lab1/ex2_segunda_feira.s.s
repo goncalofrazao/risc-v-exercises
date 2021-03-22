@@ -1,8 +1,8 @@
 #----------enunciado----------
-#Determinar a maior potencia
-#de 2 menor que u(10)
-#u(10) e o 10º elemento
-#da sequencia de fibonacci
+# Determinar a maior potencia
+# de 2 menor que u(10)
+# u(10) e o 10º elemento
+# da sequencia de fibonacci
 
 .data
 x: .word 2
