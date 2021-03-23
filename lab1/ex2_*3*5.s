@@ -17,9 +17,10 @@ li x12, 3
 li x13, 1
 li x14, 11
 li x16, 3
+li x17, 5
 
 for:
-mul x11, x13, x11
+mul x11, x13, x17
 #addi x13, x13, 1
 mul x12, x12, x16
 add x10, x11, x12
