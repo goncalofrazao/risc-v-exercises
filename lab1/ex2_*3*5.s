@@ -7,17 +7,20 @@
 # 10. 3^(i+1) representa 3 
 # elevado a i+1.
 
+
 .data
-x: .word 1
+x: .word 3
 
 .text
 la x15, x
 li x11, 5
 li x12, 3
 li x13, 1
-li x14, 11
+li x14, 10
 li x16, 3
 li x17, 5
+sw x16, 0(x15)
+addi x15, x15, 4
 
 for:
 mul x11, x13, x17
