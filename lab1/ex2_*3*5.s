@@ -8,7 +8,7 @@
 # elevado a i+1.
 
 .data
-x: .word 3
+x: .word 1
 
 .text
 la x15, x
@@ -21,7 +21,6 @@ li x17, 5
 
 for:
 mul x11, x13, x17
-#addi x13, x13, 1
 mul x12, x12, x16
 add x10, x11, x12
 sw x10, 0(x15)
