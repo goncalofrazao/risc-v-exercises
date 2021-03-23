@@ -1,3 +1,9 @@
+#----------Enunciado----------
+# sequencia de fibonacci mas
+# so guarda na memoria os no.
+# impares
+
+
 .data
 x: .word 1
 y: .word 1
