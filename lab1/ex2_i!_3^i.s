@@ -1,3 +1,10 @@
+#----------enunciado----------
+# Predente-se criar uma tabela
+# no memória do processador 
+# com os valores de 
+# i! + 3^i quando i varia de 0 
+# até 10
+
 .data
 x:	.word 2
 
