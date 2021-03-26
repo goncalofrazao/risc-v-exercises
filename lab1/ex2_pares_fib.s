@@ -1,7 +1,7 @@
 #----------Enunciado----------
 # sequencia de fibonacci mas
 # so guarda na memoria os no.
-# impares
+# pares
 
 
 .data
