@@ -1,25 +1,29 @@
 .data
-a: .word 1
-b: .word 1
-c: .word 1
+x: .word 1
+y: .word 1
+z: .word 1
 
 #################################################################
 
 .text
-
 main:
-lw x10, a
-lw x11, b
-jal rede_neuronal_xor
-mv x12, x10
+# load do x, y e z para os registos
+lw x10, x
+lw x11, y
+lw x12, z
 
-lw x10, c
-lw x11, a
-jal x_and_not_y
-mv x11, x10
+# store dos valores para a pilha
+addi sp, sp, -12
+sw x12, 0(sp)
+sw x11, 4(sp)
+sw x10, 8(sp)
 
-mv x10, x12
-jal x_or_y
+# chamada da funçao
+jal not(x_xor_y_xor_z)
+
+# load do output da funçao
+lw x10, 0(sp)
+addi sp, sp, 4
 
 li x17, 10
 ecall
@@ -65,18 +69,14 @@ addi sp, sp, 16
 ret
 
 #################################################################
-#input
+
+neuronio:
+mv x18, x1
 # x10 = x1
 # x11 = x2
 # x12 = w1
 # x13 = w2
 # x14 = b
-# output 
-# x10 = output neuronio
-
-
-neuronio:
-mv x18, x1
 
 # x1 * w1
 addi sp, sp, -8
@@ -108,11 +108,6 @@ li x10, 1
 ret
 
 #################################################################
-# input
-# x10 = x
-# x11 = y
-# output
-# x10 = x xor y
 
 rede_neuronal_xor:
 
@@ -123,12 +118,9 @@ mv x19, x1
 # x15 = c
 # x16 = d
 
-addi sp, sp, -20
+addi sp, sp, -8
 sw x10, 0(sp)
 sw x11, 4(sp)
-sw x12, 8(sp)
-sw x13, 12(sp)
-sw x14, 16(sp)
 
 # c = neuronio(a, b, 2, -2, -1)
 lw x10, 0(sp)
@@ -156,10 +148,7 @@ li x13, 2
 li x14, -1
 jal neuronio
 
-lw x12, 8(sp)
-lw x13, 12(sp)
-lw x14, 16(sp)
-addi sp, sp, 20
+addi sp, sp, 8
 
 # repo jal
 mv x1, x19
@@ -170,50 +159,16 @@ ret
 # x10 = x
 # x11 = y
 # output
-# x10 = x and not(y)
-x_and_not_y:
+# x10 = x nand y
+x_nand_y:
 
-# save jal
 mv x20, x1
 
-
 addi sp, sp, -12
 sw x12, 0(sp)
 sw x13, 4(sp)
 sw x14, 8(sp)
 
-# return = neuronio(c, a, 3, -2, -2)
-li x12, 3
-li x13, -2
-li x14, -2
-jal neuronio
-
-lw x12, 0(sp)
-lw x13, 4(sp)
-lw x14, 8(sp)
-addi sp, sp, 12
-
-# repo jal
-mv x1, x20
-ret
-
-#################################################################
-# input
-# x10 = x
-# x11 = y
-# output
-# x10 = x or y
-
-x_or_y:
-# save jal
-mv x21, x1
-
-addi sp, sp, -12
-sw x12, 0(sp)
-sw x13, 4(sp)
-sw x14, 8(sp)
-
-# return = neuronio(x, y, 2, 2, -1)
 li x12, 2
 li x13, 2
 li x14, -1
@@ -224,6 +179,44 @@ lw x13, 4(sp)
 lw x14, 8(sp)
 addi sp, sp, 12
 
-# repo jal
+mv x1, x20
+
+ret
+
+#################################################################
+
+not(x_xor_y_xor_z):
+# input by stack 0(sp) -- 4(sp) -- 8(sp)
+# output by stack 0(sp)
+
+# save register
+mv x21, x1
+
+# salvaguarda de contexto
+addi sp, sp, -8
+sw x10, 4(sp)
+sw x11, 0(sp)
+
+# x10 = xor(sp1, sp2)
+lw x10, 16(sp)
+lw x11, 12(sp)
+jal rede_neuronal_xor
+
+# x10 = xor(x10, sp3)
+lw x11, 8(sp)
+jal rede_neuronal_xor
+
+# not(x10)
+xori x10, x10, 1
+
+# guardar o output na pilha
+sw x10, 16(sp)
+
+# reposiçao de contexto
+lw x10, 4(sp)
+lw x11, 0(sp)
+addi sp, sp, 16
+
+# repo register
 mv x1, x21
 ret

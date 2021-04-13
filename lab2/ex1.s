@@ -1,6 +1,6 @@
 .data
 x: .word 1
-y: .word 1
+y: .word 0
 
 #################################################################
 
@@ -8,12 +8,7 @@ y: .word 1
 lw x10, x
 lw x11, y
 jal rede_neuronal_xor
-li x11, 0
-li x12, 0
-li x13, 0
-li x14, 0
-li x15, 0
-li x16, 0
+
 li x17, 10
 ecall
 
