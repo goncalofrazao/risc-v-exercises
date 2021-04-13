@@ -1,13 +1,14 @@
 .data
-a: .word 1
-b: .word 1
-c: .word 1
+a: .word 0
+b: .word 0
+c: .word 0
 
 #################################################################
 
 .text
 
 main:
+### a = 0 e b = 0 e c = 0
 lw x10, a
 lw x11, b
 jal rede_neuronal_xor
@@ -20,6 +21,172 @@ mv x11, x10
 
 mv x10, x12
 jal x_and_y
+
+li x17, 1
+ecall
+
+### a = 0 e b = 0 e c = 1
+la x10, c
+li x12, 1
+sw x12, 0(x10)
+
+lw x10, a
+lw x11, b
+jal rede_neuronal_xor
+mv x12, x10
+
+lw x10, c
+lw x11, a
+jal x_or_y
+mv x11, x10
+
+mv x10, x12
+jal x_and_y
+
+li x17, 1
+ecall
+
+### a = 0 e b = 1 e c = 0
+la x10, c
+li x12, 0
+sw x12, 0(x10)
+
+la x10, b
+li x12, 1
+sw x12, 0(x10)
+
+lw x10, a
+lw x11, b
+jal rede_neuronal_xor
+mv x12, x10
+
+lw x10, c
+lw x11, a
+jal x_or_y
+mv x11, x10
+
+mv x10, x12
+jal x_and_y
+
+li x17, 1
+ecall
+
+### a = 0 e b = 1 e c = 1
+la x10, c
+li x12, 1
+sw x12, 0(x10)
+
+lw x10, a
+lw x11, b
+jal rede_neuronal_xor
+mv x12, x10
+
+lw x10, c
+lw x11, a
+jal x_or_y
+mv x11, x10
+
+mv x10, x12
+jal x_and_y
+
+li x17, 1
+ecall
+
+### a = 1 e b = 0 e c = 0
+la x10, a
+li x12, 1
+sw x12, 0(x10)
+
+la x10, b
+li x12, 0
+sw x12, 0(x10)
+
+la x10, c
+li x12, 0
+sw x12, 0(x10)
+
+lw x10, a
+lw x11, b
+jal rede_neuronal_xor
+mv x12, x10
+
+lw x10, c
+lw x11, a
+jal x_or_y
+mv x11, x10
+
+mv x10, x12
+jal x_and_y
+
+li x17, 1
+ecall
+
+### a = 1 e b = 0 e c = 1
+la x10, c
+li x12, 1
+sw x12, 0(x10)
+
+lw x10, a
+lw x11, b
+jal rede_neuronal_xor
+mv x12, x10
+
+lw x10, c
+lw x11, a
+jal x_or_y
+mv x11, x10
+
+mv x10, x12
+jal x_and_y
+
+li x17, 1
+ecall
+
+### a = 1 e b = 1 e c = 0
+la x10, b
+li x12, 1
+sw x12, 0(x10)
+
+la x10, c
+li x12, 0
+sw x12, 0(x10)
+
+lw x10, a
+lw x11, b
+jal rede_neuronal_xor
+mv x12, x10
+
+lw x10, c
+lw x11, a
+jal x_or_y
+mv x11, x10
+
+mv x10, x12
+jal x_and_y
+
+li x17, 1
+ecall
+
+### a = 1 e b = 1 e c = 1
+la x10, c
+li x12, 1
+sw x12, 0(x10)
+
+lw x10, a
+lw x11, b
+jal rede_neuronal_xor
+mv x12, x10
+
+lw x10, c
+lw x11, a
+jal x_or_y
+mv x11, x10
+
+mv x10, x12
+jal x_and_y
+
+li x17, 1
+ecall
 
 li x17, 10
 ecall
