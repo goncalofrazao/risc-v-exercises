@@ -169,9 +169,9 @@ sw x12, 0(sp)
 sw x13, 4(sp)
 sw x14, 8(sp)
 
-li x12, 2
-li x13, 2
-li x14, -1
+li x12, -2
+li x13, -2
+li x14, 3
 jal neuronio
 
 lw x12, 0(sp)
@@ -207,7 +207,8 @@ lw x11, 8(sp)
 jal rede_neuronal_xor
 
 # not(x10)
-xori x10, x10, 1
+li x11, 1
+jal x_nand_y
 
 # guardar o output na pilha
 sw x10, 16(sp)
