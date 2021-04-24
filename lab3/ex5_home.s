@@ -18,6 +18,7 @@
 
 	lw a0, 0(sp)
 	addi sp, sp, 4
+
 	li a7, 1
 	ecall
 
@@ -41,7 +42,7 @@ Pow:
 	srli t1, t0, 1 # t1 = h
 
 	li t2, 1
-	ble t0, t2, else # y < 1 => else
+	ble t0, t2, else # y < 1 ou y = 1 => else
 
 	andi t2, t0, 1
 	bne t2, zero, else # y % 2 = 1 => else
@@ -56,7 +57,7 @@ Pow:
 	lw t0, 0(sp) # t0 = pow(x,h)
 	addi sp, sp, -4
 	sw t0, 0(sp)
-	jal Mult
+	jal Mult # Mult(pow(x,h), pow(x,h))
 	lw s1, 0(sp)
 	addi sp, sp, 4
 	j end
