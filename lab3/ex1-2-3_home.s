@@ -14,7 +14,7 @@
 
 # Programa principal: programa que recebe dois numeros inteiros positivos, x e y, e retorna o valor de x^y
 	lw a0, x
-	lw a1, y # 0x8
+	lw a1, y # 0xC
 	jal Pow # 0x10 ra <- PC + 4 = 0x10 + 4 = 0x14
 
 	li a7, 1 # 0x14
