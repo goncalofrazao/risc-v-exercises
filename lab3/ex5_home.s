@@ -32,31 +32,35 @@
 # 	Efeitos:  	---
 
 Pow:
-	addi sp, sp, -8
-	sw ra, 4(sp)
-	sw s1, 0(sp)
+	addi sp, sp, -24
+	sw ra, 20(sp)
+	sw s1, 16(sp)
+	sw a0, 12(sp)
+	sw a1, 8(sp)
+	sw a2, 4(sp)
+	sw a3, 0(sp)
 	
-	lw t0, 8(sp) # t0 = y
-	beq t0, zero, return1 # y = 0 => return1
+	lw a0, 24(sp) # a0 = y
+	beq a0, zero, return1 # y = 0 => return1
 
-	srli t1, t0, 1 # t1 = h
+	srli a1, a0, 1 # a1 = h
 
-	li t2, 1
-	ble t0, t2, else # y < 1 ou y = 1 => else
+	li a2, 1
+	ble a0, a2, else # y < 1 ou y = 1 => else
 
-	andi t2, t0, 1
-	bne t2, zero, else # y % 2 = 1 => else
+	andi a2, a0, 1
+	bne a2, zero, else # y % 2 = 1 => else
 
-	lw t3, 12(sp) # t3 = x
+	lw a3, 28(sp) # t3 = x
 
 	addi sp, sp, -8
-	sw t3, 4(sp) # 4(sp) = x
-	sw t1, 0(sp) # 0(sp) = h
+	sw a3, 4(sp) # 4(sp) = x
+	sw a1, 0(sp) # 0(sp) = h
 	jal	Pow
 
-	lw t0, 0(sp) # t0 = pow(x,h)
+	lw a0, 0(sp) # a0 = pow(x,h)
 	addi sp, sp, -4
-	sw t0, 0(sp)
+	sw a0, 0(sp)
 	jal Mult # Mult(pow(x,h), pow(x,h))
 	lw s1, 0(sp)
 	addi sp, sp, 4
@@ -64,20 +68,20 @@ Pow:
 
 else:
 
-	lw t0, 12(sp) # t0 = x
+	lw a0, 28(sp) # a0 = x
 	
 	addi sp, sp, -8
-	sw t0, 4(sp) # 4(sp) = x
-	sw t1, 0(sp) # 0(sp) = h
+	sw a0, 4(sp) # 4(sp) = x
+	sw a1, 0(sp) # 0(sp) = h
 	jal Pow
 	
-	lw t0, 0(sp) # t0 = pow(x,h)
+	lw a0, 0(sp) # a0 = pow(x,h)
 	addi sp, sp, -4
-	sw t0, 0(sp)
+	sw a0, 0(sp)
 	jal Mult
-	lw t0, 16(sp) # t0 = x
+	lw a0, 32(sp) # a0 = x
 	addi sp, sp, -4
-	sw t0, 0(sp)
+	sw a0, 0(sp)
 	jal Mult
 	lw s1, 0(sp)
 	addi sp, sp, 4
@@ -87,11 +91,15 @@ return1:
 	li s1, 1
 
 end:
-	sw s1, 12(sp)
+	sw s1, 28(sp)
 
-	lw s1, 0(sp)
-	lw ra, 4(sp)
-	addi sp, sp, 12
+	lw ra, 20(sp)
+	lw s1, 16(sp)
+	lw a0, 12(sp)
+	lw a1, 8(sp)
+	lw a2, 4(sp)
+	lw a3, 0(sp)
+	addi sp, sp, 28
 	ret
 
 # Mult: Rotina que efectua o calculo de a*b, sendo a e b numeros inteiros positivos
