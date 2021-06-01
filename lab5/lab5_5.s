@@ -31,7 +31,7 @@ N:      .word 64
 			mul t1, s9, s9 		# t1 = N * N
 			# for(int n = 0; n < N * N ; n++)
 transpose:
-			blt t0, t1, end
+			bge t0, t1, end
 			# int i = n / N
 			div t2, t0, s9
 			# int j = n % N
@@ -45,7 +45,7 @@ transpose:
 			lw t3, 0(t3)
 			# t2 = &B[n]
 			slli t2, t0, 2
-			add t2, t2, s2
+			add t2, t2, s6
 			sw t3, 0(t2)
 			addi t0, t0, 1
 			j transpose
